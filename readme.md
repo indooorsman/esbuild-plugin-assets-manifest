@@ -14,7 +14,8 @@ npm install -D esbuild-plugin-assets-manifest
 const assetsManifest = require('esbuild-plugin-assets-manifest');
 
 esbuild.build({
-  plugin: [
+  metafile: true,
+  plugins: [
     assetsManifest({
       filename: `myapp-manifest.json`,
       path: `dist`
