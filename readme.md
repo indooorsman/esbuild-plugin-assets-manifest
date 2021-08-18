@@ -23,7 +23,7 @@ esbuild.build({
 })
 ```
 
-```json
+```js
 // myapp-manifest.json
 {
   "": {
