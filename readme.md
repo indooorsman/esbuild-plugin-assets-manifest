@@ -22,3 +22,21 @@ esbuild.build({
   ]
 })
 ```
+
+```json
+// myapp-manifest.json
+{
+  "": {
+    "app.js": "/static/app-PUTTQJMG.js",
+    "world.jpg": "/static/world-7U6P4ADE.jpg",
+    "app.css": "/static/app-5T3MG3RU.css"
+  },
+  "app": {
+    "js": "/static/app-PUTTQJMG.js",
+    "css": "/static/app-5T3MG3RU.css"
+  },
+  "world": {
+    "jpg": "/static/world-7U6P4ADE.jpg"
+  }
+}
+```
