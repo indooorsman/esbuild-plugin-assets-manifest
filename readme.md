@@ -15,10 +15,7 @@ esbuild.build({
   plugin: [
     assetsManifest({
       filename: `myapp-manifest.json`,
-      path: `dist`,
-      entryNameMap: {
-        'src/index.js': 'myapp'
-      }
+      path: `dist`
     })
   ]
 })
