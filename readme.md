@@ -4,6 +4,8 @@ Generate manifest file like assets-webpack-plugin
 
 ## Usage
 
+See [./test](https://github.com/indooorsman/esbuild-plugin-assets-manifest/tree/main/test) for example.
+
 ```bash
 npm install -D esbuild-plugin-assets-manifest
 ```
