@@ -1,0 +1,33 @@
+const esbuild = require('esbuild');
+const assetsManifestPlugin = require('../index.js');
+const path = require('path');
+const outdir = path.resolve(__dirname, './dist');
+
+esbuild.build({
+  entryPoints: {
+    app: './index.js',
+    aucss: './app/a/u.css',
+    bu: './app/b/u.js'
+  },
+  outdir,
+  bundle: true,
+  metafile: true,
+  minify: true,
+  target: 'esnext',
+  entryNames: '[name]-[hash]',
+  publicPath: '/static',
+  plugins: [
+    assetsManifestPlugin({
+      filename: 'myapp-manifest.json',
+      path: outdir,
+      metadata: { timestamp: new Date() }, // todo
+      processOutput() {
+        // todo
+      }
+    })
+  ],
+  absWorkingDir: __dirname,
+  loader: {
+    '.jpg': 'file'
+  }
+});
