@@ -110,10 +110,18 @@ function assetsManifestPlugin(opt) {
         });
 
         const finalManifest = groupByName(manifest);
+        const { metadata, processOutput } = opt;
+        if (metadata) {
+          finalManifest.metadata = metadata;
+        }
+        let manifestString = JSON.stringify(finalManifest, null, '  ');
+        if (typeof processOutput === 'function') {
+          manifestString = processOutput(finalManifest) || manifestString;
+        }
 
         writeFileSync(
           path.resolve(fullOutdir, opt.filename),
-          JSON.stringify(finalManifest, null, '  '),
+          manifestString,
           { encoding: 'utf-8' }
         );
       });

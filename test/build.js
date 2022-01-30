@@ -15,14 +15,20 @@ esbuild.build({
   minify: true,
   target: 'esnext',
   entryNames: '[name]-[hash]',
-  publicPath: '/static',
+  // publicPath: '/static',
   plugins: [
     assetsManifestPlugin({
       filename: 'myapp-manifest.json',
       path: outdir,
-      metadata: { timestamp: new Date() }, // todo
-      processOutput() {
-        // todo
+      metadata: { timestamp: new Date(), module: 'myapp', type: 'esm' },
+      processOutput(assets) {
+        const orderAssets = {
+          app: assets['app'],
+          aucss: assets['aucss'],
+          bu: assets['bu'],
+          ...assets
+        };
+        return JSON.stringify(orderAssets, null, '  ');
       }
     })
   ],
