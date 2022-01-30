@@ -1,7 +1,6 @@
 const esbuild = require('esbuild');
 const assetsManifestPlugin = require('../index.js');
-const path = require('path');
-const outdir = path.resolve(__dirname, './dist');
+const outdir = './dist';
 
 esbuild.build({
   entryPoints: {
@@ -15,7 +14,7 @@ esbuild.build({
   minify: true,
   target: 'esnext',
   entryNames: '[name]-[hash]',
-  // publicPath: '/static',
+  publicPath: '/static',
   plugins: [
     assetsManifestPlugin({
       filename: 'myapp-manifest.json',

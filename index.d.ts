@@ -10,10 +10,22 @@ declare namespace ESBuildPluginAssetsManifest {
   type ProcessOutputFn = (assets: Assets) => string;
 
   interface Options {
+    /**
+     * required. the name of manifest file
+     */
     filename: string;
-    path: string;
+    /**
+     * optional. default is `outdir` of esbuild config
+     */
+    path?: string;
+    /**
+     * optional. will be appended to the manifest json
+     */
     metadata?: Record<string, unknown>;
-    processOutput?: ProcessOutputFn
+    /**
+     * optional. return value of this function will overwrite the manifest json file
+     */
+    processOutput?: ProcessOutputFn;
   }
 }
 
