@@ -3,6 +3,9 @@ const path = require('path');
 
 const getEntryPathname = ({ entryPoint, inputs }) => {
   const sourcePath = entryPoint || Object.keys(inputs)[0];
+  if (!sourcePath) {
+    return;
+  }
   const ext = path.extname(sourcePath);
   const basename = path.basename(sourcePath, ext);
   const dir = path.dirname(sourcePath);
@@ -59,6 +62,28 @@ const groupByName = (manifest) => {
 };
 
 /**
+ * resolveExts
+ * @param {import('./index').Assets} finalManifest
+ * @returns {import('./index').Assets}
+ */
+const resolveExts = (finalManifest) => {
+  const resolved = {};
+  for (const entryPoint in finalManifest) {
+    resolved[entryPoint] = {};
+    const exts = finalManifest[entryPoint];
+    for (const ext in exts) {
+      let outpath = exts[ext];
+      if (Array.isArray(outpath)) {
+        outpath = outpath[0];
+      }
+      const outExt = path.extname(outpath).replace(/^\./, '');
+      resolved[entryPoint][outExt] = exts[ext];
+    }
+  }
+  return resolved;
+};
+
+/**
  * assetsManifestPlugin
  * @param {import('./index').Options} opt
  * @returns {import('esbuild').Plugin}
@@ -102,6 +127,9 @@ function assetsManifestPlugin(opt) {
 
         Object.keys(outputs).forEach((outFilePath) => {
           const entryPathname = getEntryPathname(outputs[outFilePath]);
+          if (!entryPathname) {
+            return;
+          }
           manifest[entryPathname] = manifest[entryPathname] || {};
           const outpath = publicPath
             ? outFilePath.replace(relativeOutdir, publicPath)
@@ -109,7 +137,7 @@ function assetsManifestPlugin(opt) {
           manifest[entryPathname] = { outpath, entryPoint: entryPointsMap[entryPathname] };
         });
 
-        const finalManifest = groupByName(manifest);
+        const finalManifest = resolveExts(groupByName(manifest));
         const { metadata, processOutput } = opt;
         if (metadata) {
           finalManifest.metadata = metadata;
@@ -119,11 +147,9 @@ function assetsManifestPlugin(opt) {
           manifestString = processOutput(finalManifest) || manifestString;
         }
 
-        writeFileSync(
-          path.resolve(fullOutdir, opt.filename),
-          manifestString,
-          { encoding: 'utf-8' }
-        );
+        writeFileSync(path.resolve(fullOutdir, opt.filename), manifestString, {
+          encoding: 'utf-8'
+        });
       });
     }
   };

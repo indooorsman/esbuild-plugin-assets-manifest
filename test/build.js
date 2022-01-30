@@ -14,6 +14,7 @@ esbuild.build({
   metafile: true,
   minify: true,
   target: 'esnext',
+  format: 'esm',
   entryNames: '[name]-[hash]',
   publicPath: '/static',
   plugins: [
