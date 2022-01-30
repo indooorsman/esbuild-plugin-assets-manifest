@@ -16,6 +16,10 @@ npm install -D esbuild-plugin-assets-manifest
 const assetsManifest = require('esbuild-plugin-assets-manifest');
 
 esbuild.build({
+  // entryPoints must be object to generate expected manifest file
+  entryPoints: {
+    app: './index.js'
+  },
   outdir: './dist',
   target: 'esnext',
   entryNames: '[name]-[hash]',
@@ -30,8 +34,6 @@ esbuild.build({
       processOutput(assets) {
         const orderAssets = {
           app: assets['app'],
-          aucss: assets['aucss'],
-          bu: assets['bu'],
           ...assets
         };
         return JSON.stringify(orderAssets, null, '  ');

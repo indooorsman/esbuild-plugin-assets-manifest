@@ -3,6 +3,7 @@ const assetsManifestPlugin = require('../index.js');
 const outdir = './dist';
 
 esbuild.build({
+  // entryPoints must be object to generate expected manifest file
   entryPoints: {
     app: './index.js',
     aucss: './app/a/u.css',
