@@ -1,8 +1,14 @@
 const { writeFileSync } = require('fs');
 const path = require('path');
 
-const getEntryPathname = ({ entryPoint, inputs }) => {
-  const sourcePath = entryPoint || Object.keys(inputs)[0];
+const getEntryPathname = ({ entryPoint, inputs = {} }, outFilePath) => {
+  const inputPathes = Object.keys(inputs);
+  if (inputPathes.length > 1 && !entryPoint) {
+    // maybe it's a splitted common chunk
+    return outFilePath;
+  }
+  const firstInput = inputPathes[0] || '';
+  const sourcePath = entryPoint || (/^<define:.+>$/i.test(firstInput) ? outFilePath : firstInput);
   if (!sourcePath) {
     return;
   }
@@ -126,7 +132,10 @@ function assetsManifestPlugin(opt) {
         const entryPointsMap = buildEntryPointsMap(outputs, entryPoints);
 
         Object.keys(outputs).forEach((outFilePath) => {
-          const entryPathname = getEntryPathname(outputs[outFilePath]);
+          const entryPathname = getEntryPathname(
+            outputs[outFilePath],
+            outFilePath.replace('' + publicPath, '')
+          );
           if (!entryPathname) {
             return;
           }
