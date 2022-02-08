@@ -1,12 +1,13 @@
 const { writeFileSync } = require('fs');
 const path = require('path');
 
-const getEntryPathname = ({ entryPoint, inputs = {} }, outFilePath) => {
+const getEntryPathname = ({ entryPoint, inputs = {} }, outFilePath = '') => {
   const inputPathes = Object.keys(inputs);
-  if (inputPathes.length > 1 && !entryPoint) {
-    // maybe it's a splitted common chunk
+  if (inputPathes.length > 1 && !entryPoint && !outFilePath.endsWith('.css')) {
+    // maybe it's a splitted common js chunk
     return outFilePath;
   }
+
   const firstInput = inputPathes[0] || '';
   const sourcePath = entryPoint || (/^<define:.+>$/i.test(firstInput) ? outFilePath : firstInput);
   if (!sourcePath) {
