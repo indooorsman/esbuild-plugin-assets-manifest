@@ -29,10 +29,10 @@ declare namespace ESBuildPluginAssetsManifest {
   }
 }
 
-export type Assets = ESBuildPluginAssetsManifest.Assets;
-
-export type Options = ESBuildPluginAssetsManifest.Options;
-
-export default function assetsManifestPlugin(options: ESBuildPluginAssetsManifest.Options): Plugin;
+declare function assetsManifestPlugin(options: ESBuildPluginAssetsManifest.Options): Plugin;
+declare namespace assetsManifestPlugin {
+  type Assets = ESBuildPluginAssetsManifest.Assets;
+  type Options = ESBuildPluginAssetsManifest.Options;
+}
 
 export = assetsManifestPlugin;
