@@ -86,6 +86,13 @@ const resolveExts = (finalManifest) => {
       const outExt = path.extname(outpath).replace(/^\./, '');
       resolved[entryPoint][outExt] = exts[ext];
     }
+    try {
+      resolved[entryPoint] = {
+        css: resolved[entryPoint]['css'],
+        js: resolved[entryPoint]['js'],
+        ...resolved[entryPoint]
+      };
+    } catch (e) {}
   }
   return resolved;
 };
