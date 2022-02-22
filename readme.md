@@ -1,6 +1,7 @@
 # esbuild-plugin-assets-manifest
 
 [![npm version](https://img.shields.io/npm/v/esbuild-plugin-assets-manifest.svg?style=flat)](https://www.npmjs.com/package/esbuild-plugin-assets-manifest)
+[![test](https://github.com/indooorsman/esbuild-plugin-assets-manifest/actions/workflows/test.yml/badge.svg)](https://github.com/indooorsman/esbuild-plugin-assets-manifest/actions/workflows/test.yml)
 
 Generate manifest file like [assets-webpack-plugin](https://github.com/ztoben/assets-webpack-plugin)
 
