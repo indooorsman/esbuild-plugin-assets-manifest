@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-assets-manifest",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Generate manifest file like assets-webpack-plugin",
   "main": "index.js",
   "scripts": {
@@ -17,10 +17,10 @@
   "author": "indooorsman@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "esbuild": "^0.14.23"
+    "esbuild": "*"
   },
   "peerDependencies": {
-    "esbuild": "^0.14.23"
+    "esbuild": "*"
   },
   "publishConfig": {
     "access": "public"
