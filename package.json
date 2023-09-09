@@ -1,6 +1,9 @@
 {
   "name": "esbuild-plugin-assets-manifest",
-  "version": "1.0.7",
+  "version": "1.0.8",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
   "description": "Generate manifest file like assets-webpack-plugin",
   "main": "index.js",
   "scripts": {
